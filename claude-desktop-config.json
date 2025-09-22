@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ticktick": {
+      "command": "node",
+      "args": ["/Users/takashishibata/Desktop/creative-lab/mcp-research/ticktick-mcp-server/dist/index.js", "--demo"],
+      "env": {
+        "TICKTICK_DEMO_MODE": "true"
+      }
+    }
+  }
+}

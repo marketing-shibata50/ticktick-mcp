@@ -1,0 +1,94 @@
+{
+  "name": "@ticktick-ecosystem/mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol server for TickTick task management integration with AI assistants like Claude",
+  "main": "dist/index.js",
+  "bin": {
+    "ticktick-mcp-server": "dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "demo": "node dist/index.js --demo",
+    "setup": "node dist/index.js --setup",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "setup-env": "chmod +x scripts/setup-env.sh && ./scripts/setup-env.sh",
+    "test-oauth": "npm run build && node scripts/test-oauth.js",
+    "postinstall": "npm run build",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ticktick",
+    "task-management",
+    "ai",
+    "automation",
+    "productivity",
+    "claude",
+    "assistant",
+    "todo",
+    "project-management",
+    "oauth",
+    "api"
+  ],
+  "author": {
+    "name": "TickTick Ecosystem",
+    "email": "support@ticktick-ecosystem.com",
+    "url": "https://github.com/ticktick-ecosystem"
+  },
+  "license": "MIT",
+  "files": [
+    "dist/",
+    "README.md",
+    "AUTHENTICATION.md",
+    "TESTING.md",
+    "LICENSE",
+    ".env.example",
+    "claude-desktop-config.json"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "axios": "^1.6.0",
+    "zod": "^3.22.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "prettier": "^3.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ticktick-ecosystem/mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ticktick-ecosystem/mcp-server/issues"
+  },
+  "homepage": "https://github.com/ticktick-ecosystem/mcp-server#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/ticktick-ecosystem"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
