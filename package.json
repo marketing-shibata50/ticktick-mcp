@@ -1,10 +1,11 @@
 {
-  "name": "@marketing-shibata50/ticktick-mcp-server",
-  "version": "1.0.0",
+  "name": "ticktick-mcp-server-interactive",
+  "version": "1.2.0",
   "description": "Model Context Protocol server for TickTick task management integration with AI assistants like Claude",
   "main": "dist/index.js",
   "bin": {
-    "ticktick-mcp-server": "dist/index.js"
+    "ticktick-mcp-server-interactive": "dist/index.js",
+    "ticktick-mcp-install": "install-mcp.js"
   },
   "type": "module",
   "scripts": {
@@ -13,6 +14,7 @@
     "start": "node dist/index.js",
     "demo": "node dist/index.js --demo",
     "setup": "node dist/index.js --setup",
+    "install-mcp": "node install-mcp.js",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
@@ -44,6 +46,8 @@
   "license": "MIT",
   "files": [
     "dist/",
+    "install-mcp.js",
+    "MCP-INSTALL.md",
     "README.md",
     "AUTHENTICATION.md",
     "TESTING.md",

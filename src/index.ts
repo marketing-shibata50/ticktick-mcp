@@ -6,6 +6,12 @@ import { ConfigManager } from './config/config-manager.js';
 import { InteractiveSetup } from './setup/interactive-setup.js';
 
 async function main() {
+  // Check for version command
+  if (process.argv.includes('--version') || process.argv.includes('-v')) {
+    console.log('1.0.0');
+    return;
+  }
+
   // Check for setup command
   if (process.argv.includes('--setup') || process.argv.includes('--configure')) {
     console.error('🔧 TickTick MCP Server セットアップを開始します...\n');

@@ -16,6 +16,10 @@ build/
 .env.test.local
 .env.production.local
 
+# TickTick MCP configuration (contains sensitive auth data)
+.ticktick-mcp/
+config.json
+
 # IDE files
 .vscode/
 .idea/
