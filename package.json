@@ -1,5 +1,5 @@
 {
-  "name": "@ticktick-ecosystem/mcp-server",
+  "name": "@marketing-shibata50/ticktick-mcp-server",
   "version": "1.0.0",
   "description": "Model Context Protocol server for TickTick task management integration with AI assistants like Claude",
   "main": "dist/index.js",
@@ -77,12 +77,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ticktick-ecosystem/mcp-server.git"
+    "url": "https://github.com/marketing-shibata50/ticktick-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/ticktick-ecosystem/mcp-server/issues"
+    "url": "https://github.com/marketing-shibata50/ticktick-mcp/issues"
   },
-  "homepage": "https://github.com/ticktick-ecosystem/mcp-server#readme",
+  "homepage": "https://github.com/marketing-shibata50/ticktick-mcp#readme",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/ticktick-ecosystem"
