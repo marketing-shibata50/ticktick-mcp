@@ -145,19 +145,21 @@ export class InteractiveSetup {
     console.log('===================\n');
     console.log('次の手順：');
     console.log('1. TickTick MCP Serverを起動:');
-    console.log('   npx @ticktick-ecosystem/mcp-server\n');
-    console.log('2. Claude Desktopで使用する場合:');
+    console.log('   node dist/index.js\n');
+    console.log('2. Claude Code CLIで使用する場合:');
+    console.log('   node install-mcp.js で自動設定\n');
+    console.log('3. Claude Desktopで使用する場合:');
     console.log('   設定ファイルに以下を追加:');
     console.log('   {');
     console.log('     "mcpServers": {');
     console.log('       "ticktick": {');
-    console.log('         "command": "npx",');
-    console.log('         "args": ["@ticktick-ecosystem/mcp-server"]');
+    console.log('         "command": "node",');
+    console.log(`         "args": ["${process.cwd()}/dist/index.js"]`);
     console.log('       }');
     console.log('     }');
     console.log('   }\n');
-    console.log('3. MCP Inspectorでテスト:');
-    console.log('   npx @modelcontextprotocol/inspector npx @ticktick-ecosystem/mcp-server\n');
+    console.log('4. MCP Inspectorでテスト:');
+    console.log('   npx @modelcontextprotocol/inspector node dist/index.js\n');
     console.log('これで実際のTickTickデータでAI支援のタスク管理が可能になります！');
   }
 
