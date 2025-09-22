@@ -67,59 +67,50 @@ async function main() {
   }
 
   console.log('\n🔧 TickTick MCP Server Configuration Options:');
-  console.log('1. NPM Package (recommended for end users)');
+  console.log('1. Local Build (production mode)');
   console.log('2. Demo Mode (no authentication required)');
-  console.log('3. Local Development (for developers)');
-  console.log('4. All of the above');
+  console.log('3. Both production and demo');
+  console.log('4. Exit');
 
   const choice = await question('\nSelect option (1-4): ');
 
+  const serverPath = path.join(__dirname, 'dist/index.js');
+
   const configs = {
-    npm: {
+    production: {
       name: 'ticktick',
       config: {
-        command: 'npx',
-        args: ['ticktick-mcp-server-interactive']
+        command: 'node',
+        args: [serverPath]
       }
     },
     demo: {
       name: 'ticktick-demo',
       config: {
-        command: 'npx',
-        args: ['ticktick-mcp-server-interactive', '--demo']
-      }
-    },
-    local: {
-      name: 'ticktick-local',
-      config: {
         command: 'node',
-        args: [path.join(projectRoot, 'ticktick-mcp-server/dist/index.js')]
+        args: [serverPath, '--demo']
       }
     }
   };
 
   switch (choice) {
     case '1':
-      mcpConfig.mcpServers[configs.npm.name] = configs.npm.config;
-      console.log('✅ Added NPM package configuration');
+      mcpConfig.mcpServers[configs.production.name] = configs.production.config;
+      console.log('✅ Added production mode configuration');
       break;
     case '2':
       mcpConfig.mcpServers[configs.demo.name] = configs.demo.config;
       console.log('✅ Added demo mode configuration');
       break;
     case '3':
-      const localPath = await question(`Local path (default: ${configs.local.config.args[0]}): `);
-      if (localPath) {
-        configs.local.config.args[0] = localPath;
-      }
-      mcpConfig.mcpServers[configs.local.name] = configs.local.config;
-      console.log('✅ Added local development configuration');
+      mcpConfig.mcpServers[configs.production.name] = configs.production.config;
+      mcpConfig.mcpServers[configs.demo.name] = configs.demo.config;
+      console.log('✅ Added both production and demo configurations');
       break;
     case '4':
-      mcpConfig.mcpServers[configs.npm.name] = configs.npm.config;
-      mcpConfig.mcpServers[configs.demo.name] = configs.demo.config;
-      mcpConfig.mcpServers[configs.local.name] = configs.local.config;
-      console.log('✅ Added all configurations');
+      console.log('👋 Exiting without changes');
+      rl.close();
+      return;
       break;
     default:
       console.log('❌ Invalid choice. Exiting...');

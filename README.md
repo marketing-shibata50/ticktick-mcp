@@ -47,14 +47,26 @@ A Model Context Protocol (MCP) server for integrating TickTick task management w
 Perfect for testing and evaluation:
 
 ```bash
-# Install and run in demo mode
-npm install -g @ticktick-ecosystem/mcp-server
-ticktick-mcp-server --demo
+# Clone and set up
+git clone https://github.com/marketing-shibata50/ticktick-mcp.git
+cd ticktick-mcp/ticktick-mcp-server
+npm install
+npm run build
+
+# Run in demo mode
+node dist/index.js --demo
 ```
 
-Or with npx:
+### Claude Code CLI Integration (Demo Mode)
+
 ```bash
-npx @ticktick-ecosystem/mcp-server --demo
+# Auto-configure for Claude Code CLI
+node install-mcp.js
+# Select "Demo Mode" option
+
+# Start Claude Code CLI in your project
+cd /your/project/directory
+claude
 ```
 
 ### Claude Desktop Integration (Demo Mode)
@@ -67,7 +79,179 @@ Add to your Claude Desktop configuration file:
 ```json
 {
   "mcpServers": {
+    "ticktick-demo": {
+      "command": "node",
+      "args": ["/FULL/PATH/TO/ticktick-mcp-server/dist/index.js", "--demo"]
+    }
+  }
+}
+```
+
+Restart Claude Desktop and start asking about your tasks!
+
+## 🛠️ Step-by-Step Installation Guide
+
+Choose your preferred installation method based on your use case:
+
+### 🎯 Method A: Git Clone Installation (Recommended for Developers)
+
+Perfect for customization, development, or local modifications:
+
+#### Step 1: Clone Repository and Setup
+```bash
+# 1. Clone the repository
+git clone https://github.com/marketing-shibata50/ticktick-mcp.git
+
+# 2. Navigate to the directory
+cd ticktick-mcp/ticktick-mcp-server
+
+# 3. Install dependencies and build
+npm install
+npm run build
+```
+
+#### Step 2: Get TickTick API Credentials
+1. Visit [TickTick Developer Portal](https://developer.ticktick.com/)
+2. Login with your TickTick account
+3. Click "Manage Apps" → "+App Name"
+4. Enter app name (e.g., "My Personal MCP Server")
+5. Set redirect URI to: `http://localhost:3000/callback`
+6. Copy your **Client ID** and **Client Secret**
+
+#### Step 3: Production Setup (Real TickTick Data)
+```bash
+# 4. Run production setup (NOT demo mode)
+node dist/index.js --setup
+```
+
+**Important**: Do NOT use `--demo` flag for production!
+
+The interactive setup will:
+1. **Prompt for API credentials** (Client ID & Secret from Step 2)
+2. **Start OAuth server** on `http://localhost:3000`
+3. **Open browser** for TickTick authorization
+4. **Exchange authorization code** for access tokens
+5. **Save configuration** to `~/.ticktick-mcp/config.json`
+
+**Expected Output:**
+```
+🔧 TickTick MCP Server セットアップを開始します...
+📋 TickTick API認証情報の取得方法：
+Client ID を入力してください: [your_client_id]
+Client Secret を入力してください: [your_client_secret]
+🚀 OAuth認証を開始します...
+🌐 ブラウザが開きます: http://localhost:3000
+✅ 認証完了！設定が保存されました
+```
+
+#### Step 4: Test Production Installation
+```bash
+# 5. Test with real TickTick data
+node dist/index.js
+# or
+npm start
+```
+
+**Verification Commands:**
+```bash
+# Check if configuration exists
+ls ~/.ticktick-mcp/config.json
+
+# View saved configuration
+cat ~/.ticktick-mcp/config.json
+
+# Test MCP server connection
+npx @modelcontextprotocol/inspector node dist/index.js
+```
+
+**Expected Behavior:**
+- ✅ No authentication errors
+- ✅ Connects to your real TickTick account
+- ✅ Shows actual tasks and projects
+
+#### Step 5: Claude Code CLI Setup (Automatic)
+```bash
+# 7. Auto-configure Claude Code CLI
+node install-mcp.js
+```
+
+This will:
+- ✅ Create `.mcp.json` in your project root
+- ✅ Set up correct local paths automatically
+- ✅ Offer production and demo mode options
+- ✅ Handle all Claude Code CLI configuration
+
+**For Claude Desktop users**, add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
     "ticktick": {
+      "command": "node",
+      "args": ["/FULL/PATH/TO/ticktick-mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+#### Step 6: Start Using with Claude Code CLI
+```bash
+# 8. Start Claude Code CLI in your project
+cd /your/project/directory
+claude
+```
+
+**Test with natural language:**
+- "Show me my TickTick tasks for today"
+- "Create a new task: Review quarterly budget"
+- "What are my overdue tasks?"
+- "Show me all projects"
+
+🎉 **You're now managing real TickTick data with AI!**
+
+**For Claude Desktop users:**
+1. Restart Claude Desktop
+2. Use the same natural language commands
+
+**Mode Summary:**
+| Mode | Command | Data Source | Use Case |
+|------|---------|-------------|----------|
+| **Production** | `node dist/index.js` | Your real TickTick | Daily use |
+| **Demo** | `node dist/index.js --demo` | Mock data | Testing only |
+
+---
+
+### 🚀 Method B: Direct Download (Alternative)
+
+Alternative method if you don't want to use git:
+
+#### Step 1: Download Source
+```bash
+# 1. Download and extract
+curl -L https://github.com/marketing-shibata50/ticktick-mcp/archive/main.zip -o ticktick-mcp.zip
+unzip ticktick-mcp.zip
+cd ticktick-mcp-main/ticktick-mcp-server
+```
+
+#### Step 2-6: Same as Method A
+Follow Steps 2-6 from Method A (Git Clone Installation)
+
+---
+
+### 🎭 Method C: Demo Mode (No Authentication)
+
+Perfect for testing and evaluation:
+
+#### Step 1: Quick Demo
+```bash
+# 1. Install and run demo instantly
+npx @ticktick-ecosystem/mcp-server --demo
+```
+
+#### Step 2: Claude Desktop Demo Setup
+```json
+{
+  "mcpServers": {
+    "ticktick-demo": {
       "command": "npx",
       "args": ["@ticktick-ecosystem/mcp-server", "--demo"],
       "env": {
@@ -78,7 +262,83 @@ Add to your Claude Desktop configuration file:
 }
 ```
 
-Restart Claude Desktop and start asking about your tasks!
+#### Step 3: Test Features
+1. Restart Claude Desktop
+2. Try: "Show me demo tasks"
+3. Test all features with mock data
+4. 🎯 **Evaluate before setting up real authentication**
+
+---
+
+## 🔧 Post-Installation Verification
+
+### Verify Installation
+```bash
+# Check version (from ticktick-mcp-server directory)
+node dist/index.js --version
+
+# Test MCP connection
+npx @modelcontextprotocol/inspector node dist/index.js --demo
+```
+
+### Common Setup Commands
+```bash
+# Re-run production setup if needed
+node dist/index.js --setup
+
+# Test production mode (real data)
+node dist/index.js
+
+# Test demo mode (mock data)
+node dist/index.js --demo
+
+# View saved configuration
+cat ~/.ticktick-mcp/config.json
+
+# Check version
+node dist/index.js --version
+```
+
+### 🔍 Production vs Demo Quick Reference
+
+#### Production Mode (Real TickTick Data)
+```bash
+# Setup once (from project directory)
+node dist/index.js --setup
+
+# Daily usage
+node dist/index.js
+
+# Claude Desktop config
+{
+  "mcpServers": {
+    "ticktick": {
+      "command": "node",
+      "args": ["/FULL/PATH/TO/ticktick-mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+#### Demo Mode (Mock Data - Testing Only)
+```bash
+# No setup needed (from project directory)
+node dist/index.js --demo
+
+# Claude Desktop config
+{
+  "mcpServers": {
+    "ticktick-demo": {
+      "command": "node",
+      "args": ["/FULL/PATH/TO/ticktick-mcp-server/dist/index.js", "--demo"]
+    }
+  }
+}
+```
+
+**⚠️ Important**:
+- **Production**: Uses your real TickTick account data
+- **Demo**: Uses fake test data for evaluation only
 
 ## 📦 Installation
 
